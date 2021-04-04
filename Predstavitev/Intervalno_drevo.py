@@ -1,7 +1,7 @@
 class Vozel:
     def __init__(self, interval):
         self.interval = interval
-        self.max = max(interval)
+        self.max = max(interval) #najvecja vrednost v intervalu v podrevesih ali v sebi 
         self.levo = None
         self.desno = None
 
@@ -110,17 +110,17 @@ class Intervalno_drevo:
         if kje == None: #ni kaj za urejati
             return
 
-        if kje.levo == None and kje.desno == None:
+        if kje.levo == None and kje.desno == None: #ali imamo se kasnega sina na katergea moremo it
             kje.max = max(kje.interval)
 
-        elif kje.levo == None:
+        elif kje.levo == None: #pogledamo ce je desno vecji element, da ga spremenimo
             kje.max = max(max(kje.interval), Intervalno_drevo.osvezi_max(kje.desno))
 
-        elif kje.desno == None:
+        elif kje.desno == None: #pogledamo ce je leo kaksen vecji element
             kje.max = max(max(kje.interval), Intervalno_drevo.osvezi_max(kje.levo))
-        else:
+        else: #pogledamo v obe smeri ce imamo se kaksnega vecjega in ga ustrezno spremenimo
             kje.max = max([max(kje.interval), Intervalno_drevo.osvezi_max(kje.levo), Intervalno_drevo.osvezi_max(kje.desno)])
-        return kje.max
+        return kje.max #vrnemo zaradi rekurzije
         
 
 
@@ -138,7 +138,7 @@ class Intervalno_drevo:
         poz = self.koren
         while True: #dokler ga ne vstavimo
 
-            if poz.max < nov_vozel.max:
+            if poz.max < nov_vozel.max: #sproti spreminjamo max vrednost
                 poz.max = nov_vozel.max
 
             if nov_vozel.interval[0] < poz.interval[0]: #pogledamo ali moramo levo ali desno
