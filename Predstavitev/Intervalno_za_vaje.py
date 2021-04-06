@@ -1,10 +1,11 @@
 #Rahlo spremenjena oziroma implementacija brez vstavljanja in pa brisanja dela intervala
 class Vozel:
-    def __init__(self, interval):
+    def __init__(self, interval, ime="Neki ni vredu"):
         self.interval = interval
         self.max = max(interval) #najvecja vrednost v intervalu v podrevesih ali v sebi 
         self.levo = None
         self.desno = None
+        self.ime = ime 
 
     @property
     def interval(self):
@@ -42,7 +43,7 @@ class Vozel:
         """
         Izpis posameznega vozla
         """
-        return f"{self.interval}, max: {self.max}"
+        return f"{self.interval}, max: {self.max}, {self.ime}"
 
     def izpis(self, nivo=0):
         """
@@ -230,7 +231,7 @@ class Intervalno_drevo:
             self.izbrisi(posamezni.interval)
 
         #vstavimo novemga [min, max]
-        self.vstavi([najmanjsi, najvecji])
+        self.vstavi([najmanjsi, najvecji], "ime")
 
 
     @staticmethod      
