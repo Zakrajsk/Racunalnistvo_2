@@ -32,5 +32,7 @@ def Najbolj_ustvarjalno_leto(drevo_ustvarjalcev, od, do):
 
 
 generirano_drevo = Preberi_datoteko("Slovenski_knjizevniki.txt")
+
+
 koliko, kdaj = Najbolj_ustvarjalno_leto(generirano_drevo, 1500, 2000)
 print(f"Najbolj aktivno leto je bilo: {kdaj}. Ustvarjalcev je bilo takrat: {koliko}")

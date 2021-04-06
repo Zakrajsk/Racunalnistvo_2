@@ -1,0 +1,19 @@
+[1. Naloga] - Najbolj ustvarjalno leto
+	Imamo datoteko Slovenski_knjizevniki.txt, v kateri so podatki o "vseh" knjizevnikih, ki so ustvarjali ali živeli v Sloveniji.
+	Podane imamo tudi letnici rojstva in smrti v obliki " ime priimek (rojstvo-smrt)". Podano imate implementacijo Intervalnega 
+	drevesa, ki pa ji manjka metoda vstavi(interval, ime), ki bo vstavila dan Vozel v intervalno drevo.
+
+	1. Sestavite metodo vstavi(interval, ime)
+	2. Napišite funkcijo, ki za neko obdobje ugotovi, katero leto je bilo najbolj ustvarjalno(je živih največ ustvarjalcev). 
+	   Uporabite metodo Vsi_prekrivajoči z ustreznimi parametri.
+
+
+[2. Naloga] - Skrajšanje dopustov
+	Imamo datoteko Delavci.txt, v kateri so podatki o delavcih ki delajo v nekem podjetju PikPok. Poleg imena imamo podan tudi
+	interval dopusta v mesecu avgustu v obliki "ime priimek (od-do)". Šef ugotovi, da imajo obvezni projekt, za katerega potrebuje vse
+	zaposlene. Zato potrebuje način, da bo vsem zaposlenim izbrisal, skrajšal ali razdvojil dopust, da bodo vsi takrat v službi.
+	Podano imate implementacijo Intervalnega drevesa, ki pa ji manjka metoda Brisi_del_intervala(interval), ki bo vsem vozliščem
+	izbrisala del intervala, ki je podan npr(10-15).
+
+	1. Sestavite metodo Brisi_del_intervala(interval)
+	2. Napišite funkcijo, ki izpiše za vse dni v avgustu koliko delavcev je tisti dan na dopustu.

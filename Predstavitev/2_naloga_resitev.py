@@ -23,10 +23,22 @@ def Izbrisi_dopuste(drevo_delavcev, od, do):
     """
     drevo_delavcev.brisanje_dela_intervala([od, do])
 
+
+def St_ljudi_na_dopustu(drevo_delavcev):
+    """
+    Vrne tabelo za vse dni, ki nam pove koliko ljudi je tisti dan na dopustu
+    """
+    tabela_dopustov = list()
+    for i in range(1, 32):
+        koliko = drevo_delavcev.Vsi_prekrivajoci([i, i])
+        tabela_dopustov.append(len(koliko))
+
+    return tabela_dopustov
+
 generirano_drevo = Preberi_datoteko("Delavci.txt")
 generirano_drevo.izpis()
 
 Izbrisi_dopuste(generirano_drevo, 10, 15)
 
 generirano_drevo.izpis()
-
+print(St_ljudi_na_dopustu(generirano_drevo))
