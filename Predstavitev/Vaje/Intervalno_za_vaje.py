@@ -1,3 +1,4 @@
+#Rahlo spremenjena oziroma implementacija brez vstavljanja in pa brisanja dela intervala
 class Vozel:
     def __init__(self, interval):
         self.interval = interval
@@ -129,37 +130,7 @@ class Intervalno_drevo:
         else: #pogledamo v obe smeri ce imamo se kaksnega vecjega in ga ustrezno spremenimo
             kje.max = max([max(kje.interval), Intervalno_drevo.osvezi_max(kje.levo), Intervalno_drevo.osvezi_max(kje.desno)])
         return kje.max #vrnemo zaradi rekurzije
-        
 
-
-    def vstavi(self, interval):
-        """
-        Vstavi nov vozel z intervalom na pravilno mesto,
-        Ob tem tudi spreminja max vrednost pri tistih, ki imajo max vrednost manjso od novega intervala
-        Ta funckija je iterativna, lahko pa bi naredili tudi rekurzivno
-        """
-
-        nov_vozel = Vozel(interval)
-        if self.koren == None:
-            self.koren = nov_vozel
-            return
-        
-        poz = self.koren
-        while True: #dokler ga ne vstavimo
-
-            if poz.max < nov_vozel.max: #sproti spreminjamo max vrednost
-                poz.max = nov_vozel.max
-
-            if nov_vozel.interval[0] < poz.interval[0]: #pogledamo ali moramo levo ali desno
-                if poz.levo == None: #Ce je prazen ga lahko dodamo
-                    poz.levo = nov_vozel
-                    break #smo vstavili zato lahko koncamo
-                poz = poz.levo #ce ni se samo premaknemo v levo in nadaljujemo
-            else:
-                if poz.desno == None:
-                    poz.desno = nov_vozel
-                    break
-                poz = poz.desno
 
     def izbrisi(self, za_izbris):
         """
@@ -238,38 +209,6 @@ class Intervalno_drevo:
         Intervalno_drevo.osvezi_max(self.koren)
 
 
-    def brisanje_dela_intervala(self, del_intervala):
-        """
-        Iz vseh intervalov, ki se prekrivajo z podanim delom izbrisemo tako, da noben interval vec ne bo vseboval tega intervala
-        """
-        #poiscemo vse ki se prekrivajo
-
-        prekrivajoci = Intervalno_drevo._Vsi_prekrivajoci(self.koren, del_intervala)
-
-        #vse 4 razlicne moznosti  (zaobjame, iz desne, iz leve, je vsebovan)
-
-        for posamezen in prekrivajoci:
-            #ali del intervala, ki ga brisemo vsebuje celoten interval [del_intervala[osnovni]del_intervala]
-            #izbrisemo celotni
-            if del_intervala[0] <= posamezen.interval[0] and del_intervala[1] >= posamezen.interval[1]:
-                self.izbrisi(posamezen.interval)
-
-            #ali se prekrivata na desni [del_intervala][osnovni]
-            if del_intervala[0] <= posamezen.interval[0] and del_intervala[1] <= posamezen.interval[1]:
-                posamezen.interval = [del_intervala[1] + 1, posamezen.interval[1]]
-
-            #ali se prekrivata na levi [osnovni][del_intervala]
-            if del_intervala[0] >= posamezen.interval[0] and del_intervala[1] >= posamezen.interval[1]:
-                posamezen.interval = [posamezen.interval[0], del_intervala[0] - 1]
-
-            #ali vsebuje interval vsebuje celoten del intervala, ki ga brisemo  [osnivni [del_intervala] osnovni]
-            #enega spremenimo na [osnovni[0], del_intevala[0]] in vstavimo se [del_intervala[1], osnovni[1]]
-            if del_intervala[0] > posamezen.interval[0] and del_intervala[1] < posamezen.interval[1]:
-                self.vstavi([del_intervala[1] + 1, posamezen.interval[1]])
-                posamezen.interval = [posamezen.interval[0], del_intervala[0] - 1]
-
-            Intervalno_drevo.osvezi_max(self.koren)
-
     def vstavi_z_zlivanjem(self, nov_interval):
         """
         Vstavi nov interval tako, da v drevesu kjer nimamo prekrivajočih se intervalov najprej izbriše tiste katere bi prekrival in nato
@@ -346,3 +285,4 @@ class Intervalno_drevo:
         Metoda, ki poklice staticno metodo in vrne tabelo vseh vozlov, kateri intervali se prekrivajo z iskanim
         """
         return Intervalno_drevo._Vsi_prekrivajoci(self.koren, iskan_interval)
+

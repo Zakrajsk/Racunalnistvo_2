@@ -1,0 +1,28 @@
+Načrt za izvedbo vaj za Intervalno drevo:
+
+1. Začeli bi z kvizom na quizizz: S tem bi ponovili osnovna pravila in metode,
+	ki jih uporabljamo na intervalnem drevesu. To bodo osnovna vprašanja, kako se vstavljajo, brišejo
+	elementi in tako naprej.
+
+
+2. Reševali bi dve različni nalogi po skupinah (2 ali več skupin odvisno od števila ljudi). Podali bi jim delno implementacijo,
+	ta bi vsebovala Razreda Vozel in pa Intervalno_drevo. Manjkala bi metoda vstavi in pa briši del intervala. Ostalo, kot so 
+	iskanje prekrivanja, brisanje intervala, izpis drevesa... bi bile že implementirane.
+
+
+	1. naloga: Imamo datoteko(v naprej pripravljeno) ustvarjalcev in njegovih rojstev ter smrti. Naloga je napisati metode in funkcije,
+		   da iz datoteke preberejo podatke in jih vstavijo v intervalno drevo. Potem pa poiščejo najbolj "ustvarjalno" leto, kdaj 
+		   je bilo največ živih ustvarjalcev med letom 1900 in 2000. 
+	Načrt reševanja:
+			1. Spremenijo razred Vozel, da lahko hrani tudi ime ustvarjalca
+			2. Implementirajo metodo vstavi v intervalno drevo
+			3. Naredijo funkcijo za branje datoteke in vstavljanje v drevo
+			4. Naredijo funkcijo, ki najde najbolj "ustvarjalno leto" (prekrivanje z vsakim letom posebaj)
+
+	2. naloga: Imamo napolnjeno intervalno drevo z delavci in intervali njihovega dopusta. Šef ugotovi, da imajo neodljožljiv sestanek
+		   v nekem časovnem obdobju, zato vsem priredi dopuste tako, da bodo takrat vsi v službi. Naloga je napisati metodo, ki lahko
+		   iz vseh izbrise tisti del intervala, ki se prekriva z intervalom sestanka.
+			
+			1. Implementirajo metodo brisi_del_intervala
+			2. Ugotovijo vmes, da je potrebna tudi metoda vstavi, ki je nimajo zato (ali implementirajo sami ali pa dobijo od druge skupine)
+			3. Resijo nalogo

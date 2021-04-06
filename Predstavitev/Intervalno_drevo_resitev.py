@@ -1,9 +1,19 @@
+#dodane stvari 1 naloga:
+#1. self.ime pri vozlu za belezenje imen
+#2. spremenjen izpis da izpise tudi imena
+#3. spremenjena vstavi nov parameter (ime), da naredimo nove vozle se z imenom
+
+#dodane stvari 2 naloga:
+#1. 1, 2, 3 isto kot pri 1 nalogi
+#2. Pri brisanju z interval dodano ime pri vstavljanju
+
 class Vozel:
-    def __init__(self, interval):
+    def __init__(self, interval, ime):
         self.interval = interval
         self.max = max(interval) #najvecja vrednost v intervalu v podrevesih ali v sebi 
         self.levo = None
         self.desno = None
+        self.ime = ime 
 
     @property
     def interval(self):
@@ -41,7 +51,7 @@ class Vozel:
         """
         Izpis posameznega vozla
         """
-        return f"{self.interval}, max: {self.max}"
+        return f"{self.interval}, max: {self.max}, {self.ime}"
 
     def izpis(self, nivo=0):
         """
@@ -132,14 +142,14 @@ class Intervalno_drevo:
         
 
 
-    def vstavi(self, interval):
+    def vstavi(self, interval, ime):
         """
         Vstavi nov vozel z intervalom na pravilno mesto,
         Ob tem tudi spreminja max vrednost pri tistih, ki imajo max vrednost manjso od novega intervala
         Ta funckija je iterativna, lahko pa bi naredili tudi rekurzivno
         """
 
-        nov_vozel = Vozel(interval)
+        nov_vozel = Vozel(interval, ime)
         if self.koren == None:
             self.koren = nov_vozel
             return
@@ -261,11 +271,12 @@ class Intervalno_drevo:
             #ali se prekrivata na levi [osnovni][del_intervala]
             if del_intervala[0] >= posamezen.interval[0] and del_intervala[1] >= posamezen.interval[1]:
                 posamezen.interval = [posamezen.interval[0], del_intervala[0] - 1]
+                #Intervalno_drevo.osvezi_max()
 
             #ali vsebuje interval vsebuje celoten del intervala, ki ga brisemo  [osnivni [del_intervala] osnovni]
             #enega spremenimo na [osnovni[0], del_intevala[0]] in vstavimo se [del_intervala[1], osnovni[1]]
             if del_intervala[0] > posamezen.interval[0] and del_intervala[1] < posamezen.interval[1]:
-                self.vstavi([del_intervala[1] + 1, posamezen.interval[1]])
+                self.vstavi([del_intervala[1] + 1, posamezen.interval[1]], posamezen.ime)
                 posamezen.interval = [posamezen.interval[0], del_intervala[0] - 1]
 
             Intervalno_drevo.osvezi_max(self.koren)
