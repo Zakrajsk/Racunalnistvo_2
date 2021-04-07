@@ -17,3 +17,20 @@
 
 	1. Sestavite metodo Brisi_del_intervala(interval)
 	2. Napišite funkcijo, ki izpiše za vse dni v avgustu koliko delavcev je tisti dan na dopustu.
+
+
+Funkcija za branje podatkov (ko bo napisana metoda vstavi)
+
+def Preberi_datoteko(ime_datoteke):
+    """
+    Prebere datoteko knjizevnikov in sestavi intervalno drevo
+    Podatki morajo biti navedeni tako:   ime priimek (rojstvo-smrt)
+    """
+    inter_drevo = Intervalno_drevo()
+    
+    for posamezni in open(ime_datoteke, encoding="utf-8"):
+        ime, pribl_interval = posamezni.split("(")
+        interval = list(map(int, pribl_interval.strip()[:-1].split("-"))) #strip za whitespace in potem se -1 da odmaknemo oklepaj
+        inter_drevo.vstavi(interval, ime)
+    
+    return inter_drevo

@@ -14,6 +14,7 @@ def Preberi_datoteko(ime_datoteke):
         inter_drevo.vstavi(interval, ime)
     
     return inter_drevo
+    
 
 def Najbolj_ustvarjalno_leto(drevo_ustvarjalcev, od, do):
     """
