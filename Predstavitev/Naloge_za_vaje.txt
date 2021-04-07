@@ -8,6 +8,23 @@
 	   Uporabite metodo Vsi_prekrivajoči z ustreznimi parametri.
 
 
+Funkcija za branje podatkov (ko bo napisana metoda vstavi)
+
+def Preberi_datoteko(ime_datoteke):
+    """
+    Prebere datoteko knjizevnikov in sestavi intervalno drevo
+    Podatki morajo biti navedeni tako:   ime priimek (rojstvo-smrt)
+    """
+    inter_drevo = Intervalno_drevo()
+    
+    for posamezni in open(ime_datoteke, encoding="utf-8"):
+        ime, pribl_interval = posamezni.split("(")
+        interval = list(map(int, pribl_interval.strip()[:-1].split("-"))) #strip za whitespace in potem se -1 da odmaknemo oklepaj
+        inter_drevo.vstavi(interval, ime)
+    
+    return inter_drevo
+
+
 [2. Naloga] - Skrajšanje dopustov
 	Imamo datoteko Delavci.txt, v kateri so podatki o delavcih ki delajo v nekem podjetju PikPok. Poleg imena imamo podan tudi
 	interval dopusta v mesecu avgustu v obliki "ime priimek (od-do)". Šef ugotovi, da imajo obvezni projekt, za katerega potrebuje vse
@@ -23,7 +40,7 @@ Funkcija za branje podatkov (ko bo napisana metoda vstavi)
 
 def Preberi_datoteko(ime_datoteke):
     """
-    Prebere datoteko knjizevnikov in sestavi intervalno drevo
+    Prebere datoteko delavcev in sestavi intervalno drevo
     Podatki morajo biti navedeni tako:   ime priimek (rojstvo-smrt)
     """
     inter_drevo = Intervalno_drevo()
