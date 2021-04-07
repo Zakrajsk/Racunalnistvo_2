@@ -25,7 +25,7 @@ def Najbolj_ustvarjalno_leto(drevo_ustvarjalcev, od, do):
 
     for i in range(od, do + 1):
         koliko = drevo_ustvarjalcev.Vsi_prekrivajoci([i, i])
-        if len(koliko) > najbolj:
+        if len(koliko) >= najbolj:
             najbolj = len(koliko)
             katero = i
     

@@ -1,8 +1,10 @@
+import time
+
 class Graf():
 
     def __init__(self, vozlisca):
         self.V = vozlisca
-        self.graph = [[0 for _ in range(vozlisca)] for __ in range(vozlisca)]
+        self.graf = [[0 for _ in range(vozlisca)] for __ in range(vozlisca)]
 
     def Izpis(self, oce):
         """
@@ -10,18 +12,18 @@ class Graf():
         """
         print("Povezava \tCena")
         for i in range(1, self.V):
-            print(oce[i], "-", i, "\t", self.graph[i][oce[i]])
+            print(oce[i], "-", i, "\t", self.graf[i][oce[i]])
 
 
-    def minKey(self, key, mstSet):
+    def minKey(self, vozlisca, ze_obiskani):
         """
         Poisce vozlisce, ki se ni v minimalnem drevesu in je najmanj oddaljena od drevesa
         """
         min = float("inf")
 
         for v in range(self.V):
-            if key[v] < min and mstSet[v] == False:
-                min = key[v]
+            if vozlisca[v] < min and ze_obiskani[v] == False:
+                min = vozlisca[v]
                 min_index = v
 
         return min_index
@@ -31,49 +33,68 @@ class Graf():
         """
         S primovim algoritmom sestavi najmanjse vpeto drevo
         """
+        trenutno_dolzine = [float("inf")] * self.V #tabela trenutnih rezultatov, da vemo katero vozlisce prvo izberemo
+        parent = [None] * self.V # Tabela za resitve
+        ze_izbrani = [False] * self.V #si bomo shranili kdaj smo ze obiskali neko vozlisce
 
-        # Key values used to pick minimum weight edge in cut
-        key = [float("inf")] * self.V
-        parent = [None] * self.V # Array to store constructed MST
-        # Make key 0 so that this vertex is picked as first vertex
-        key[0] = 0
-        mstSet = [False] * self.V
-
-        parent[0] = -1 # First node is always the root of
+        trenutno_dolzine[0] = 0 #nastavimo na nic, da prvo izberemo to vozlisce
+        parent[0] = -1 #to je vedno -1 ker smo tega izbrali za izhodisce
 
         for _ in range(self.V):
 
-            # Pick the minimum distance vertex from
-            # the set of vertices not yet processed.
-            # u is always equal to src in first iteration
-            u = self.minKey(key, mstSet)
+            obravnavan = self.minKey(trenutno_dolzine, ze_izbrani) #izberemo tistega z minimalno vrednostjo, ki pa se ni bil izbran
 
-            # Put the minimum distance vertex in
-            # the shortest path tree
-            mstSet[u] = True
+            ze_izbrani[obravnavan] = True #sedaj ga oznacimo ze za izbranega
 
-            # Update dist value of the adjacent vertices
-            # of the picked vertex only if the current
-            # distance is greater than new distance and
-            # the vertex in not in the shotest path tree
-            for v in range(self.V):
+            for posamezno in range(self.V): #gremo cez vozlisca
 
-                # graph[u][v] is non zero only for adjacent vertices of m
-                # mstSet[v] is false for vertices not yet included in MST
-                # Update the key only if graph[u][v] is smaller than key[v]
-                if self.graph[u][v] > 0 and mstSet[v] == False and key[v] > self.graph[u][v]:
-                    key[v] = self.graph[u][v]
-                    parent[v] = u
+                #ce povezava obstaja in se nismo izbrali tega vozlisca ter ima trenutno dolzine se vedno vecjo kot nova povezava med izbranim
+                #takrat zamenjamo ker smo nasli boljso
+                if self.graf[obravnavan][posamezno] > 0 and ze_izbrani[posamezno] == False and trenutno_dolzine[posamezno] > self.graf[obravnavan][posamezno]:
+                    trenutno_dolzine[posamezno] = self.graf[obravnavan][posamezno]
+                    parent[posamezno] = obravnavan
 
-        self.Izpis(parent)
+        #self.Izpis(parent) #izpisemo resitev, zakomentirana, ker sem racunal casovne zahtevnosti
 
-g = Graf(5)
-g.graph = [ [0, 2, 0, 6, 0],
-			[2, 0, 3, 8, 5],
-			[0, 3, 0, 0, 7],
-			[6, 8, 0, 0, 9],
-			[0, 5, 7, 9, 0]]
+def sestavi_matriko(ime_datoteke):
+    """
+    Funkcija sestavi matriko povezav. Najprej prebere txt datoteko in s pomocjo le te nastavi vse vrednosti v matriki
+    """
+    branje = open(ime_datoteke)
+    st_vozlisc = int(branje.readline())
+    matrika_povezav = [[0 for i in range(st_vozlisc)] for j in range(st_vozlisc)]
+    st_povezav = int(branje.readline())
+    for _ in range(st_povezav):
+        vrsta = branje.readline()
+        prvo, drugo, teza = vrsta.strip().split(" ")
+        prvo = int(prvo)
+        drugo = int(drugo)
+        teza = float(teza)
+        matrika_povezav[prvo][drugo] = teza
+        matrika_povezav[drugo][prvo] = teza
+    return st_vozlisc, st_povezav, matrika_povezav
 
-g.prim()
+def preveri_razlicne_grafe(tabela_grafov):
+    """
+    Funckija preveri iz izpise kako dolgo traja izvajanje posameznega dela
+    pri primovem algoritmu za vsak graf iz tabele_grafov posebaj
+    """
+    for posamezn in tabela_grafov:
+        cas = time.time()
 
-# Contributed by Divyanshu Mehta (geeksforGeeks)
+        st_vozlisc, st_povezav, matrika = sestavi_matriko(posamezn)
+        testni = Graf(st_vozlisc)
+        testni.graf = matrika
+
+        print(f"Pretvorba iz datoteke v graf traja: {time.time() - cas} sekund")
+
+
+        cas = time.time()
+        testni.prim()
+
+        print(f"Delovanje Primovega algoritma za {st_vozlisc} vozlišč in {st_povezav} povezav vzame: {time.time() - cas} sekund")
+        print("---------------------------------------------------------------------------")
+
+#largeEWG.txt je izpuscen, saj dela vse predolgo
+vsi_grafi = ["tinyEWG.txt", "mediumEWG.txt", "1000EWG.txt", "10000EWG.txt"]
+preveri_razlicne_grafe(vsi_grafi)
