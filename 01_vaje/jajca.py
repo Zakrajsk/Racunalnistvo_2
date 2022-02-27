@@ -9,16 +9,12 @@
 # =============================================================================
 from functools import lru_cache
 
-from sklearn.cluster import k_means
-
 @lru_cache(maxsize = None)
 def jajce_rec(n, k):
     """
     """
-    if n == 1:
+    if n == 1 or k <= 1:
         return k
-    if k == 0 or k == 1:
-        return k 
 
     return 1 + min(max(jajce_rec(n - 1, i - 1), jajce_rec(n, k - i)) for i in range(1, k + 1))
 
@@ -28,6 +24,25 @@ def jajce_rec(n, k):
 # Tokrat naj funkcija nebo napisana rekurzivno
 # =============================================================================
 
+def jajce_iter(n, k):
+    """
+    Funkcija vrne najmanjse stevilo metov jajca pri k nadstropjih in n jajcih. Funkcija je iterativna brez rekurzije
+    """
+    tab_rezultatov = [[i if (j == 0 or i <= 1) else float('inf') for i in range(k + 1)] for j in range(n)]
+    
+    for i in range(1, n):
+        for j in range(2, k + 1):
+            
+            najmanjsi = float('inf')
+            for m in range(1, j + 1):
+                vmesni = max(tab_rezultatov[i - 1][m - 1], tab_rezultatov[i][j - m])
+
+                if vmesni < najmanjsi:
+                    najmanjsi = vmesni
+            tab_rezultatov[i][j] = 1 + najmanjsi
+    return tab_rezultatov[n - 1][k]
+
+
 # =====================================================================@030069=
 # 3. podnaloga
 # Sestavite funkcijo `nadstropja(d, n)`, ki vam pove koliko nadstropij lahko preverite
@@ -35,7 +50,7 @@ def jajce_rec(n, k):
 # =============================================================================
 
 # st nadstorpij, ki jih lahko preverimo z d meti in n jajci
-#nadstropja(d, n) = 1 + nadstropja(d-1, n-1) + nadstropja(d-1, n)
+# nadstropja(d, n) = 1 + nadstropja(d-1, n-1) + nadstropja(d-1, n)
 
 # =====================================================================@030070=
 # 4. podnaloga
