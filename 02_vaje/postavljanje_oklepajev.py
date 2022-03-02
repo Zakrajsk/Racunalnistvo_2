@@ -76,7 +76,7 @@ def oklepaji_dinamicno(izraz):
         return 0, 0
     izraz = izraz.split()
     n = len(izraz) - (len(izraz) // 2)  # število števil, ki nastopa v izrazu
-    vrednosti = [[0 for _ in range(n)] for _ in range(n)]
+    vrednosti = [[[0, 0] for _ in range(n)] for _ in range(n)]
 
     # napolnimo glavno diagonalo
     for i in range(n): 
@@ -87,10 +87,11 @@ def oklepaji_dinamicno(izraz):
         for k in range(n-i):  # kateri zaporedni elt v naddiagonali
             najvecja = -float('inf')
             najmanjsa = float('inf')
-            for j in range(i):
-                levo_max, levo_min = vrednosti[i - 1][j]
-                desno_max, desno_min = vrednosti[i - 1][j + 1]
-                op = izraz[2*i+1]
+            for j in range(i): # pogledamo vse mozne variante v nasi tabeli
+                levo_max, levo_min = vrednosti[k][k + j] 
+                desno_max, desno_min = vrednosti[k + j + 1][i + k]
+                #ustrezen predznak
+                op = izraz[2*(j + k) + 1]
                 
                 max_max = str(levo_max) + op + str(desno_max)
                 min_min = str(levo_min) + op + str(desno_min)
@@ -99,12 +100,14 @@ def oklepaji_dinamicno(izraz):
 
                 max_vrednost = eval(max(max_max, max_min, min_min, min_max, key=lambda x: eval(x)))
                 min_vrednost = eval(min(max_max, max_min, min_min, min_max, key=lambda x: eval(x)))
+
+                #iscemo najvecjo in najmanjso vrednost
                 if max_vrednost > najvecja:
                     najvecja = max_vrednost
                 if min_vrednost < najmanjsa:
                     najmanjsa = min_vrednost
-            vrednosti[i][k] = (najvecja, najmanjsa)  ### dopolni z ustreznimi indeksi
-    
+            vrednosti[k][i + k] = (najvecja, najmanjsa)  ### dopolni z ustreznimi indeksi
+
     return tuple(vrednosti[0][-1])
 # =====================================================================@029934=
 # 3. podnaloga
