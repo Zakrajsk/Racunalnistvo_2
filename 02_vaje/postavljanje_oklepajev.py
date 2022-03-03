@@ -128,7 +128,57 @@ def oklepaji_dinamicno(izraz):
 # Kode ne piši na novo, ampak preuredi rešitev prejšnje podnaloge.
 # =============================================================================
 
+def oklepaji_izraz(izraz):
+    ''' poišče največjo in najmanjšo vrednost, ki ju lahko dosežemo
+    z dodajanjem oklepajev izrazu izraz '''
+    if not izraz:
+        return ''
+    izraz = izraz.split()
+    n = len(izraz) - (len(izraz) // 2)  # število števil, ki nastopa v izrazu
+    vrednosti = [[[0, 0, "", ""] for _ in range(n)] for _ in range(n)]
 
+    # napolnimo glavno diagonalo
+    for i in range(n): 
+        vrednosti[i][i] = (int(izraz[2 * i]),int(izraz[2 * i]), str(izraz[2 * i]), str(izraz[2 * i]))
+    
+    # polnimo po naddiagonalah
+    for i in range(1, n):  # katera naddiagonala
+        for k in range(n-i):  # kateri zaporedni elt v naddiagonali
+            najvecja = -float('inf')
+            najmanjsa = float('inf')
+            for j in range(i): # pogledamo vse mozne variante v nasi tabeli
+                levo_max, levo_min, levo_max_izraz, levo_min_izraz = vrednosti[k][k + j] 
+                desno_max, desno_min, desno_max_izraz, desno_min_izraz = vrednosti[k + j + 1][i + k]
+                #ustrezen predznak
+                op = izraz[2*(j + k) + 1]
+                
+                max_max = str(levo_max) + " " + op +  " " + str(desno_max)
+                min_min = str(levo_min) + " " + op +  " " + str(desno_min)
+                min_max = str(levo_min) + " " + op +  " " + str(desno_max)
+                max_min = str(levo_max) + " " + op +  " " + str(desno_min)
+
+                #Generiramo vse mmozne izraze
+                max_max_izraz = (("(" + levo_max_izraz + ") ") if len(levo_max_izraz.split(" ")) > 1 else (levo_max_izraz + " ")) + op +  ((" (" + desno_max_izraz + ")") if len(desno_max_izraz.split(" ")) > 1 else (" " + desno_max_izraz))
+                min_min_izraz = (("(" + levo_min_izraz + ") ") if len(levo_min_izraz.split(" ")) > 1 else (levo_min_izraz + " ")) + op +  ((" (" + desno_min_izraz + ")") if len(desno_min_izraz.split(" ")) > 1 else (" " + desno_min_izraz))
+                min_max_izraz = (("(" + levo_min_izraz + ") ") if len(levo_min_izraz.split(" ")) > 1 else (levo_min_izraz + " ")) + op +  ((" (" + desno_max_izraz + ")") if len(desno_max_izraz.split(" ")) > 1 else (" " + desno_max_izraz))
+                max_min_izraz = (("(" + levo_max_izraz + ") ") if len(levo_max_izraz.split(" ")) > 1 else (levo_max_izraz + " ")) + op +  ((" (" + desno_min_izraz + ")") if len(desno_min_izraz.split(" ")) > 1 else (" " + desno_min_izraz))
+
+                #najdemo najvecjo in najmanjso kombinacijo
+                max_izraz = max(max_max_izraz, max_min_izraz, min_min_izraz, min_max_izraz, key=lambda x: eval(x))
+                min_izraz = min(max_max_izraz, max_min_izraz, min_min_izraz, min_max_izraz, key=lambda x: eval(x))
+                max_vrednost = eval(max(max_max, max_min, min_min, min_max, key=lambda x: eval(x)))
+                min_vrednost = eval(min(max_max, max_min, min_min, min_max, key=lambda x: eval(x)))
+
+                #iscemo najvecjo in najmanjso vrednost
+                if max_vrednost > najvecja:
+                    najvecja = max_vrednost
+                    max_izraz_z_oklepaji = max_izraz
+                if min_vrednost < najmanjsa:
+                    najmanjsa = min_vrednost
+                    min_izraz_z_oklepaji = min_izraz
+            vrednosti[k][i + k] = (najvecja, najmanjsa, max_izraz_z_oklepaji, min_izraz_z_oklepaji)
+
+    return vrednosti[0][-1][2]
 
 
 
