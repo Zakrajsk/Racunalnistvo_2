@@ -12,6 +12,7 @@ from functools import lru_cache
 @lru_cache(maxsize = None)
 def jajce_rec(n, k):
     """
+    Funkcija vrne najmanjse stevilo metov jajca pri k nadstropjih in n jajcih.
     """
     if n == 1 or k <= 1:
         return k
@@ -49,8 +50,14 @@ def jajce_iter(n, k):
 # v `d` metih in z `n` jajci.
 # =============================================================================
 
-# st nadstorpij, ki jih lahko preverimo z d meti in n jajci
-# nadstropja(d, n) = 1 + nadstropja(d-1, n-1) + nadstropja(d-1, n)
+def nadstropja(d, n):
+    '''
+    Funckija nam pove koliko nastropij lahko preverimo v d metih z n jajci
+    '''
+    if d == 0 or n == 0:
+        return 0
+
+    return 1 + nadstropja(d - 1, n - 1) + nadstropja(d - 1, n)
 
 # =====================================================================@030070=
 # 4. podnaloga
@@ -58,6 +65,17 @@ def jajce_iter(n, k):
 # funkcija delovati hitro tudi za večje stavbe z več nadstropji (recimo nad 1000 nadstropji).
 # Namig: uporabite funkcijo `nadstropja(d, n)`.
 # =============================================================================
+def jajca_hitro(n , k):
+    '''
+    Funkcija vrne najmanjse stevilo metov jajca pri k nadstropjih in n jajcih. Funkcija za pomoc uporabi nadstorpja(d, n)
+    '''
+    d = 0
+    #lahko naredimo neskoncno zanko ker bomo zagogtovo prisli do resitve
+    while(True):
+        koliko_lahko_preverimo = nadstropja(d, n)
+        if koliko_lahko_preverimo >= k:
+            return d
+        d += 1
 
 
 
