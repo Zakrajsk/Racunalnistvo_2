@@ -2,7 +2,7 @@
 
 **Ime:** Gal Zakrajšek
 
-**Datum:** 24.02.2021
+**Datum:** 24.02.2022
 
 ---
 

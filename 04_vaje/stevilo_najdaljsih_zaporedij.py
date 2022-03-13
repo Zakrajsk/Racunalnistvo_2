@@ -1,91 +1,10 @@
 # =============================================================================
-# Najdaljše padajoče podzaporedje
-# =====================================================================@029986=
+# Število najdaljših zaporedij
+# =====================================================================@030152=
 # 1. podnaloga
-# Sestavi rekurzivno funkcijo `padajoce_podzaporedje_rekurzivno(zaporedje)`, ki
-# za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja.
-# 
-# Kako lahko pospešimo delovanje funkcije?
+# Sestavi funkcijo `stevilo_podzaporedij(zaporedje)`, ki za dano zaporedje vrne
+# število najdaljših naraščajočih podzaporedij.
 # =============================================================================
-def padajoce_podzaporedje_rekurzivno(zaporedje):
-    """
-    Za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja.
-    """
-    def najdaljse_padajoce(i=0, prej=float("inf")):
-        if i == len(zaporedje):
-            return 0
-
-        # Izpustimo obravnavanega
-        izpusti = najdaljse_padajoce(i + 1, prej)
-
-        # Vzamemo obravnavanega
-        vzami = 0
-        if zaporedje[i] < prej:
-            vzami = 1 + najdaljse_padajoce(i + 1, zaporedje[i])
-
-        return max(izpusti, vzami)
-
-    return najdaljse_padajoce()
-
-# =====================================================================@029987=
-# 2. podnaloga
-# Sestavi funkcijo `padajoce_podzaporedje_tabela(zaporedje)`, ki za dano
-# zaporedje vrne dolžino najdaljšega padajočega podzaporedja. Funkcija naj ne bo
-# rekurzivna, temveč naj si delne rešitve shranjuje v tabelo.
-# =============================================================================
-
-def padajoce_podzaporedje_tabela(zaporedje):
-    """
-    Za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja. Brez rekurzije s shranjevanjem v tabelo.
-    """
-    if not zaporedje:  # Tisti en primer []
-        return 0
-
-    dolzina = len(zaporedje)
-    tabela = [1 for _ in range(dolzina)]
-    # Za vsakega shranimo mozno dolzino
-    for i in range(dolzina):
-        for j in range(i):
-            if zaporedje[i] < zaporedje[j] and tabela[i] < tabela[j] + 1:
-                tabela[i] = tabela[j] + 1
-
-    return max(tabela)
-
-
-# =====================================================================@029988=
-# 3. podnaloga
-# Sestavi funkcijo `padajoce_podzaporedje(zaporedje)`, ki za dano
-# zaporedje vrne najdaljše padajoče podzaporedje. Podzaporedje naj vrne kot
-# seznam. Če je rešitev več, naj vrne tisto z najmanjšimi indeksi.
-# =============================================================================
-
-def padajoce_podzaporedje(zaporedje):
-    """
-    Za dano zaporedje vrne elemente, ki tvorijo najdaljše padajoče podzaporedje. Brez rekurzije s shranjevanjem v tabelo.
-    """
-    if not zaporedje:
-        return []
-
-    dolzina = len(zaporedje)
-    tabela = [[1, [zaporedje[i]]] for i in range(dolzina)]
-    # Za vsakega shranimo mozno dolzino
-    for i in range(dolzina):
-        for j in range(i):
-            if zaporedje[i] < zaporedje[j] and tabela[i][0] < tabela[j][0] + 1:
-                tabela[i][0] = tabela[j][0] + 1
-                tabela[i][1] = tabela[j][1][:]
-                tabela[i][1].append(zaporedje[i])
-    return max(tabela)[1]
-
-# =====================================================================@029989=
-# 4. podnaloga
-# Sestavi funkcijo `vsa_padajoca_podzaporedja(zaporedje)`, ki za dano
-# zaporedje vrne vsa najdaljša padajoča podzaporedja. Vsako podzaporedje naj bo
-# predstavljeno s terico (tuple), rešitev pa naj bo podana kot množica
-# podzaporedij.
-# =============================================================================
-
-
 
 
 
@@ -650,65 +569,20 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4NiwidXNlciI6MjA5OX0:1nSDmy:FEeTlBgwqbvajNBSqmnTX35ajzY'
+        Check.current_part['token'] = 'eyJwYXJ0IjozMDE1MiwidXNlciI6MjA5OX0:1nTQR2:0pSirZOX-NuF3bCPtUZDjCfUR1Q'
         try:
-            tests = [('padajoce_podzaporedje_rekurzivno([15, 27, 14, 38, 63, 55, 46, 65, 85])', 3),
-                     ('padajoce_podzaporedje_rekurzivno([50, 3, 10, 7, 40, 80])', 3),
-                     ('padajoce_podzaporedje_rekurzivno([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', 5),
-                     ('padajoce_podzaporedje_rekurzivno([])', 0)
-                    ]
+            import random
+            random.seed(1)
+            # Random array with seed 1
+            arr = list(range(1, 5001))
+            random.shuffle(arr)
             
-            for test in tests:
-                if not Check.equal(*test):
-                    break
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4NywidXNlciI6MjA5OX0:1nSDmy:KspnvzPb9uYUaUf8TkTWH233j68'
-        try:
-            tests = [('padajoce_podzaporedje_tabela([15, 27, 14, 38, 63, 55, 46, 65, 85])', 3),
-                     ('padajoce_podzaporedje_tabela([50, 3, 10, 7, 40, 80])', 3),
-                     ('padajoce_podzaporedje_tabela([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', 5),
-                     ('padajoce_podzaporedje_tabela([])', 0)
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4OCwidXNlciI6MjA5OX0:1nSDmy:U9DoL2apjKbdBvswEEfFjoYuKmE'
-        try:
-            tests = [('padajoce_podzaporedje([15, 27, 14, 38, 63, 55, 46, 65, 85])', [63, 55, 46]),
-                     ('padajoce_podzaporedje([50, 3, 10, 7, 40, 80])', [50, 10, 7]),
-                     ('padajoce_podzaporedje([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', [12, 10, 6, 5, 3]),
-                     ('padajoce_podzaporedje([])', [])
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4OSwidXNlciI6MjA5OX0:1nSDmy:zEcg5ofEJEM2rDW3d4OJTSesnLE'
-        try:
-            tests = [('vsa_padajoca_podzaporedja([2, 3])', {(2,), (3,)}),
-                     ('vsa_padajoca_podzaporedja([4, 2, 3, 1])', {(4, 3, 1), (4, 2, 1)}),
-                     ('vsa_padajoca_podzaporedja([1, 4, 2, 3, 15, 2, 5, 10, 1, 6, 8, 5, 16])', {(15, 10, 8, 5), (15, 10, 6, 5), (4, 3, 2, 1)}),
-                     ('vsa_padajoca_podzaporedja([])', set())
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
+            Check.equal('stevilo_podzaporedij([8, 5, 4, 3, 1, 9, 7, 6, 2])', 14) and\
+            Check.equal('stevilo_podzaporedij([8, 7, 4, 1, 5, 2, 3, 6])', 1) and\
+            Check.equal('stevilo_podzaporedij([14, 5, 13, 15, 17, 16, 1, 8, 3, 10, 19, 2, 7, 11, 21, 18, 6, 9, 12, 4, 20])', 20) and\
+            Check.equal('stevilo_podzaporedij([19, 5, 17, 12, 15, 18, 11, 10, 16, 4, 7, 1, 6, 3, 20, 8, 2, 9, 13, 14])', 6) and\
+            Check.equal('stevilo_podzaporedij([18, 78, 20, 9, 39, 33, 5, 28, 52, 47, 93, 98, 58, 79, 92, 26, 24, 13, 29, 21, 83, 75, 35, 46, 70, 17, 53, 81, 36, 44, 7, 96, 4, 71, 12, 54, 100, 61, 22, 14, 55, 60, 6, 73, 19, 10, 8, 3, 90, 59, 11, 32, 42, 87, 77, 2, 48, 86, 30, 82, 51, 99, 57, 89, 68, 27, 43, 25, 65, 88, 80, 66, 50, 37, 56, 74, 69, 41, 1, 67, 49, 94, 85, 45, 31, 97, 23, 62, 84, 34, 95, 63, 91, 64, 76, 15, 38, 72, 40, 16])', 48) and\
+            Check.secret(stevilo_podzaporedij(arr), 13547520)
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

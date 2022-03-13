@@ -1,42 +1,15 @@
 # =============================================================================
-# Najdaljše padajoče podzaporedje
-# =====================================================================@029986=
+# Sod - lih
+# =====================================================================@029992=
 # 1. podnaloga
-# Sestavi rekurzivno funkcijo `padajoce_podzaporedje_rekurzivno(zaporedje)`, ki
-# za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja.
-# 
-# Kako lahko pospešimo delovanje funkcije?
-# =============================================================================
-def padajoce_podzaporedje_rekurzivno(zaporedje):
-    """
-    Za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja.
-    """
-    def najdaljse_padajoce(i=0, prej=float("inf")):
-        if i == len(zaporedje):
-            return 0
-
-        # Izpustimo obravnavanega
-        izpusti = najdaljse_padajoce(i + 1, prej)
-
-        # Vzamemo obravnavanega
-        vzami = 0
-        if zaporedje[i] < prej:
-            vzami = 1 + najdaljse_padajoce(i + 1, zaporedje[i])
-
-        return max(izpusti, vzami)
-
-    return najdaljse_padajoce()
-
-# =====================================================================@029987=
-# 2. podnaloga
-# Sestavi funkcijo `padajoce_podzaporedje_tabela(zaporedje)`, ki za dano
-# zaporedje vrne dolžino najdaljšega padajočega podzaporedja. Funkcija naj ne bo
-# rekurzivna, temveč naj si delne rešitve shranjuje v tabelo.
+# Sestavi funkcijo 'sod_lih(zaporedje)', ki vrne dolžino najdaljšega
+# naraščajočega podzaporedja zaporedja 'zaporedje', sestavljenega iz izmenično
+# lihih in sodih členov (prvi člen je lahko tako lih kot sod).
 # =============================================================================
 
-def padajoce_podzaporedje_tabela(zaporedje):
+def sod_lih(zaporedje):
     """
-    Za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja. Brez rekurzije s shranjevanjem v tabelo.
+    Za dano zaporedje vrne dolžino najdaljšega padajočega podzaporedja kjer so elementi izmenično sodi in lihi.
     """
     if not zaporedje:  # Tisti en primer []
         return 0
@@ -46,22 +19,32 @@ def padajoce_podzaporedje_tabela(zaporedje):
     # Za vsakega shranimo mozno dolzino
     for i in range(dolzina):
         for j in range(i):
-            if zaporedje[i] < zaporedje[j] and tabela[i] < tabela[j] + 1:
+            if zaporedje[i] % 2 == 0:
+                #gledamo zdaj lihe
+                if zaporedje[j] % 2 == 0:
+                    continue
+            else:
+                #gledamo sode
+                if zaporedje[j] % 2 != 0:
+                    continue
+
+            if zaporedje[i] > zaporedje[j] and tabela[i] < tabela[j] + 1:
                 tabela[i] = tabela[j] + 1
 
     return max(tabela)
 
 
-# =====================================================================@029988=
-# 3. podnaloga
-# Sestavi funkcijo `padajoce_podzaporedje(zaporedje)`, ki za dano
-# zaporedje vrne najdaljše padajoče podzaporedje. Podzaporedje naj vrne kot
-# seznam. Če je rešitev več, naj vrne tisto z najmanjšimi indeksi.
+
+# =====================================================================@029993=
+# 2. podnaloga
+# Sestavi funkcijo 'sod_lih_podzap(zaporedje)', ki vrne najdaljše
+# naraščajoče podzaporedje zaporedja 'zaporedje', sestavljenega iz izmenično
+# lihih in sodih členov (prvi člen je lahko tako lih kot sod).
 # =============================================================================
 
-def padajoce_podzaporedje(zaporedje):
+def sod_lih_podzap(zaporedje):
     """
-    Za dano zaporedje vrne elemente, ki tvorijo najdaljše padajoče podzaporedje. Brez rekurzije s shranjevanjem v tabelo.
+    Za dano zaporedje vrne elemente, ki tvorijo najdaljše padajoče podzaporedje kjer so elementi izmenično sodi in lihi.
     """
     if not zaporedje:
         return []
@@ -71,21 +54,21 @@ def padajoce_podzaporedje(zaporedje):
     # Za vsakega shranimo mozno dolzino
     for i in range(dolzina):
         for j in range(i):
-            if zaporedje[i] < zaporedje[j] and tabela[i][0] < tabela[j][0] + 1:
+            if zaporedje[i] % 2 == 0:
+                #gledamo zdaj lihe
+                if zaporedje[j] % 2 == 0:
+                    continue
+            else:
+                #gledamo sode
+                if zaporedje[j] % 2 != 0:
+                    continue
+
+            if zaporedje[i] > zaporedje[j] and tabela[i][0] < tabela[j][0] + 1:
                 tabela[i][0] = tabela[j][0] + 1
                 tabela[i][1] = tabela[j][1][:]
                 tabela[i][1].append(zaporedje[i])
+
     return max(tabela)[1]
-
-# =====================================================================@029989=
-# 4. podnaloga
-# Sestavi funkcijo `vsa_padajoca_podzaporedja(zaporedje)`, ki za dano
-# zaporedje vrne vsa najdaljša padajoča podzaporedja. Vsako podzaporedje naj bo
-# predstavljeno s terico (tuple), rešitev pa naj bo podana kot množica
-# podzaporedij.
-# =============================================================================
-
-
 
 
 
@@ -650,65 +633,19 @@ def _validate_current_file():
     Check.initialize(file_parts)
 
     if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4NiwidXNlciI6MjA5OX0:1nSDmy:FEeTlBgwqbvajNBSqmnTX35ajzY'
+        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk5MiwidXNlciI6MjA5OX0:1nTMct:UTiP9udC4bRKrBWf0pLyJBtNTP8'
         try:
-            tests = [('padajoce_podzaporedje_rekurzivno([15, 27, 14, 38, 63, 55, 46, 65, 85])', 3),
-                     ('padajoce_podzaporedje_rekurzivno([50, 3, 10, 7, 40, 80])', 3),
-                     ('padajoce_podzaporedje_rekurzivno([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', 5),
-                     ('padajoce_podzaporedje_rekurzivno([])', 0)
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
+            Check.secret(sod_lih([1, 12, 2, 22, 5, 30, 31, 14, 17, 11]))
+            Check.secret(sod_lih([5, 6, 9, 4, 7, 8]))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])
 
     if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4NywidXNlciI6MjA5OX0:1nSDmy:KspnvzPb9uYUaUf8TkTWH233j68'
+        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk5MywidXNlciI6MjA5OX0:1nTMct:-pvjFmRkDSwYhJdgcqn9il9UlOA'
         try:
-            tests = [('padajoce_podzaporedje_tabela([15, 27, 14, 38, 63, 55, 46, 65, 85])', 3),
-                     ('padajoce_podzaporedje_tabela([50, 3, 10, 7, 40, 80])', 3),
-                     ('padajoce_podzaporedje_tabela([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', 5),
-                     ('padajoce_podzaporedje_tabela([])', 0)
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4OCwidXNlciI6MjA5OX0:1nSDmy:U9DoL2apjKbdBvswEEfFjoYuKmE'
-        try:
-            tests = [('padajoce_podzaporedje([15, 27, 14, 38, 63, 55, 46, 65, 85])', [63, 55, 46]),
-                     ('padajoce_podzaporedje([50, 3, 10, 7, 40, 80])', [50, 10, 7]),
-                     ('padajoce_podzaporedje([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])', [12, 10, 6, 5, 3]),
-                     ('padajoce_podzaporedje([])', [])
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
-        except:
-            Check.error("Testi sprožijo izjemo\n  {0}",
-                        "\n  ".join(traceback.format_exc().split("\n"))[:-2])
-
-    if Check.part():
-        Check.current_part['token'] = 'eyJwYXJ0IjoyOTk4OSwidXNlciI6MjA5OX0:1nSDmy:zEcg5ofEJEM2rDW3d4OJTSesnLE'
-        try:
-            tests = [('vsa_padajoca_podzaporedja([2, 3])', {(2,), (3,)}),
-                     ('vsa_padajoca_podzaporedja([4, 2, 3, 1])', {(4, 3, 1), (4, 2, 1)}),
-                     ('vsa_padajoca_podzaporedja([1, 4, 2, 3, 15, 2, 5, 10, 1, 6, 8, 5, 16])', {(15, 10, 8, 5), (15, 10, 6, 5), (4, 3, 2, 1)}),
-                     ('vsa_padajoca_podzaporedja([])', set())
-                    ]
-            
-            for test in tests:
-                if not Check.equal(*test):
-                    break
+            Check.secret(sod_lih_podzap([5, 6, 9, 4, 7, 8]))
+            Check.secret(sod_lih_podzap([1, 12, 2, 22, 5, 30, 31, 14, 17, 11]))
         except:
             Check.error("Testi sprožijo izjemo\n  {0}",
                         "\n  ".join(traceback.format_exc().split("\n"))[:-2])

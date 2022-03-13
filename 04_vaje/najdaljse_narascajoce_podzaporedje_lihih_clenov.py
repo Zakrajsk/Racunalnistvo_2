@@ -10,7 +10,7 @@
 
 def max_podzaporedje_lihi(zaporedje):
     """
-    Za dano zaporedje vrne elemente, ki tvorijo najdaljše padajoče podzaporedje. Brez rekurzije s shranjevanjem v tabelo.
+    Za dano zaporedje vrne elemente, ki tvorijo najdaljše padajoče podzaporedje, elementi so lahko samo liha stevila
     """
     #izbrisemo sode elemente
     zaporedje = [el  for el in zaporedje if (el % 2 != 0)]
