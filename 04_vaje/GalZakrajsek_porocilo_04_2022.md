@@ -1,4 +1,4 @@
-# Vaje 24. 02, Dinamično programiranje 2
+# Vaje 10.3.2022 podzaporedja
 
 **Ime:** Gal Zakrajšek
 
