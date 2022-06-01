@@ -5,12 +5,12 @@
 **Datum:** 07.04.2022
 
 
-Na vajah smo obravnavali Bellman Fordov algoritem in pa A*. Potem smo se razdelili v ekipe in imeli tekmovanje kdo prej pride do rešitev pri nalogah, ki so navedene v poročilu pod naslovom tekmovanje.
+Na vajah smo obravnavali Bellman Fordov algoritem in pa A*. Potem smo imeli tekmovanje kdo prej pride do rešitev pri nalogah, ki so navedene v poročilu pod naslovom tekmovanje.
 
 
 ## Komentarji in opombe
 
-Vaje so bile super, saj je tekmovanje naredilo vaje zabavne in so hitro minile. Naloge so bile dobre, saj smo obe ekipe prišle do rešitev.
+Vaje so bile super, saj je tekmovanje naredilo vaje zabavne in so hitro minile.
 
 
 ## 1. naloga
@@ -76,7 +76,7 @@ Ideja: predpocesiranje: Naredimo Floyw-Warshalla, če si ga lahko privoščimo. 
 ### 4.2. naloga
 **Navodilo** Recimo, da začnemo v vozlišču 0 in želimo končati v vozlišču 10000, vmes pa moramo obiskati vozlišča 1000, 3000, 5000, 8000 in 9000. Obiskujemo jih lahko v poljubnem vrstnem redu in obiščemo jih lahko tudi večkrat. Pomembno je le to, da začnemo v 0 in končamo v 10000. Poiščite čim krajšo pot, ki ustreza tem zahtevam.
 
-Koda, z katero smo z skupino rešili oba problema je naslednja: 
+Sprva je vsak reševal sam, vendar ko je prvi prišel do rešitve sva z Liamom skupaj delala in poiskušala rešiti tudi drugi del. Koda s katero sva reševala je naslednja.
 
 ```python
 import time
