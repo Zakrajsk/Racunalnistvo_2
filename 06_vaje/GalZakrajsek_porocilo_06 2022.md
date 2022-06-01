@@ -1,20 +1,32 @@
-# Vaje 24. 03 in 31. 03, MVD 2.del, PNP uvod
+# Vaje 24.3.2022 Dijkstrov algoritem
 
 **Ime:** Gal Zakrajšek
 
-**Datum:** 07.04.2021
+**Datum:** 03.04.2022
 
 
+Na vajah smo obravnavali Dijsktrov algoritem. Rešili smo primer in pa ga tudi poskusili implementirati. Nato smo odgovarjali še na dodatna vprašanja o algoritmu. Pogledali smo si tudi kako deluje prioritetna vrsta in pa kopica.
 
 
-Dijkstrov algoritem:
-Graf G(E, V), usmerjen obtežen in nenegativne uteži.
-Vhod: G, s € V(G)
-Izhod: Najkrajše poti o ds do vseh ostalih vozlišč
-Časovna zahtevnost O(|V|^2)
+## Komentarji in opombe
+
+Vaje so bile vredu, saj smo ponovili delovanje algoritma in ga tudi implementirali. 
 
 
-1. Iz A -> H
+# Dijsktrov algoritem
+
+Podatki: $Graf\ G(E, V)$, ki pa mora biti usmerjen in obtežen. Vse povezave morajo biti nenegativne.\
+Vhodni podatki algoritma: $Graf\ G$ in začetno vozlišče $s \in V(G)$\
+Izhod: Najkrajše poti od vozlišča $s$ do vseh ostalih vozlišč.\
+Časovna zahtevnost $O(|V|^2)$
+
+## 1. naloga
+**Navodilo** Simuliraj Dijkstrov algoritem na spodnjem grafu.
+
+
+![Slika grafa](nal1_graf.png)
+
+Spodaj je tabela, ki bi jo vrnila dijsktra, če bi iskali potiz vozličša $A$ do vozlišča. $H$
 
 |   | 0   | A   | B   | C   | D   | E   | G | H | F |
 |---|-----|-----|-----|-----|-----|-----|---|---|---|
@@ -37,163 +49,74 @@ PQ.pop() ...............O(log|PQ|)
 Z PQ je odvisno koliko so redki grafi. Zato je treba vedeti na kaksnem grafu je treba delat.
 
 
-4. smo ze povedal tudi v prejsnem porocilu zgled
-
-5. Imamo algoritem naj_pot(G), vrne seznam vozlišč na najdaljši poti.
-
-najprej hamiltonovo pot na G grafu  (v py neka koda)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-Na vajah in doma smo poskušali najti oziroma implementirati Primov, Dijkstrin in Floyd-Warshallov algoritem. Te nato izvesti na različnih 
-grafih in primerjati čase izvajanja.
-
-
-## Komentarji in opombe
-
-Vaje so bile zanimive, saj nismo samo implementirali teh algoritmov ampak smo tudi videli, kako se obnašajo na različnih podatkih. Tudi ostali razmisleki, kako algoritem popraviti v primeru spremembe kakšne uteži so zanimivi, saj vidimo, da hitro postane problem, katerega optimalna rešitev še zdaj ni povsem znana.
-
-
-## Organizacija dela
-
-Prvič smo delali v skupinah, ki so jo sestavljali (Martin, Luka in jaz). Implementirali smo Primov algoritem s pomočjo interneta. Vse ostalo delo sem dokončal doma. 
-
-
-# Minimalna vpeta drevesa
-
-**Navodilo:** Implementacija Primovega algoritma in uporaba na grafih
-
-Implementirajte verzijo Primovega algoritma s časovno zahtevnostjo O(V^2) za grafe predstavljene z matriko sosednosti. Implementacijo poženite na testnem grafu. Ko boste z njo zadovoljni, si izberite nekaj omrežij iz naslednjih virov, ter implementacijo preizkusite še na njih.
-
-Implementiral sem algoritem s pomočjo spleta. Časovna zahtevnost algoritma je O(V^2), saj vsako vozlišče primerja z vsakim.
-Implementacije nisem vključil v poročilo, je pa priložena zraven v datoteki "Prim.py". 
-Notri so tudi funkcije, ki za različne grafe izračunajo čas izvajanja Primovega algoritma.
-
-Prilagam sliko, kjer je razvidno približno koliko časa je Primov algoritem deloval za posamezne primere. Datoteko z 1.000.000 vozlišči sem izpustil, saj program že predolgo bere datoteke, kaj šele algoritem, ki bo delal s časovno zahtevnostjo O(V^2).
-
-![Slika casov Prim](Casi_prim.png)
-
-## Dodatne naloge
-
-**Navodilo:** Poiščite algoritem, ki bo poiskal drugo najmanjše vpeto drevo (recimo, da je minimalno zakleto). Predpostavite lahko, da imajo povezave različne uteži.
-
-Algoritem je tak, da vedno ko želimo najti n-to najmanjše vpeto drevo moramo zamenjati n-1 povezav.
-Ideja je taka, da prvo najdemo najmanjše vpeto drevo. Rečemo, da so vse povezave v množici E. Nato eno povezavo iz T množice izbrišemo, tako dobimo dve vpeti drevesi. Sedaj moramo iz vseh povezav razen tistih v T najti najmanjšo povezavo, ki povezuje obe komponenti. Tako ponovno dobimo eno vpeto drevo, ki je drugo najmanjše.
-
-Kako pa najdemo najmanšo povezavo, ki bo povezala dve komponenti? Načina sta dva.
-1) Za vsak e, ki je povezava v T poiščemo neko drugo povezavo f tako, da bo razlika c(f) - c(e) najmanjša. Te cene primerjamo in najdemo tisto z najboljšo razliko. Na koncu to povezavo odstranimo in dodamo f, ki smo ga našli. To bo drugo najmanjše vpeto drevo.
-
-
-2) Povezavo f, ki ni v množici E dodamo v drevo. Dobimo sedaj cikel in iz njega odstranimo najcenejšo povezavo, to bo ta naš e. To ponovimo za vse povezave, ki niso bile na začetku v množici T in primerjamo kdaj dobimo najmanjši cikel. To je na koncu drugi najmanjši cikel.
-
-
-
-**Navodilo:** Pri vseh naslednjih nalogah imamo dan neusmerjen graf G z utežmi na povezavah ter minimalnim vpetim drevesom T. Vaš vhodni podatek je povezava e in nova utež, algoritmi pa morajo T popraviti tako, da bo minimalno drevo v spremenjenem grafu. Seveda bi lahko samo še enkrat izračunalni minimalno vpeto drevo v času O(E log V), ampak ste lahko hitrejši.
-
-***Navodilo:*** Opišite algoritem, s katerim bi posodobili minimalno vpeto drevo, če zmanjšamo utež povezave e v T.
-
-Algoritma ne potrebujemo, saj če zmanjšamo utež v povezavi, ki je že v T potem postane minimalno vpeto drevo še manjše in bo zagotovo najmanjše.
-
-
-***Navodilo:*** Opišite algoritem, s katerim bi posodobili minimalno vpeto drevo, če zmanjšamo utež povezave e, ki ni v T.
-
-Algoritem deluje tako, da to povezavo, ki ni v T dodamo v T in tako ponovno dobimo cikel. Iz njega nato izbrišemo najdražjo povezavo ter tako ponovno dobimo minimalno vpeto drevo.
-
-
-***Navodilo:*** Opišite algoritem, s katerim bi posodobili minimalno vpeto drevo, če povečamo utež povezave e v T.
-
-Algoritem bi deloval tako, da najprej izbrišemo povezavo e iz drevesa tako dobimo dve komponenti. Nato poiščemo vse povezave, ki niso v T in ki povežejo obe komponenti skupaj. Od vseh teh izberemo najcenejšo.
-
-***Navodilo:*** Opišite algoritem, s katerim bi posodobili minimalno vpeto drevo, če povečamo utež povezave e, ki ni v T.
-
-Algoritma ne potrebujemo, saj če zvečamo utež povezavi, ki ni v minimalnem vpetem drevo, ta nikakor ne bo vplival na minimalno vpeto drevo, saj bo še večja kot prej.
-
-
-
-# Problem najmanjših poti
-
-**Navodilo:** Dijkstrin algoritem najde drugačne najkrajše poti, če vsem utežem prištejemo neko konstanto. Poiščite najmanjši tak primer grafa (po številu vozlišč) in konstanto c (za tak graf) tako, da bo Dijkstrin algoritem našel drugačno pot med dvema vozliščema po tem, ko prištejemo c vsem utežem.
-
-Na sliki se vidi, kako bi Dijkstrin algoritem vrnil drugačno minimalno pot(rdeča), če vsem prištejemo neko konstanto. Najmanjši primer grafa ima torej 3 vozlišča
-
-![Slika Povecanja s konstanto](Dijkstra_povecanje_z_konstanto.png)
-
-**Navodilo:** Ali Dijkstrin algoritem deluje za usmerjene grafe? Če ja, ga moramo kako prilagoditi? Če ne, kakšen mora biti graf, kjer algoritem ne bo deloval pravilno (opis ali primer)?
-
-Dijkstrin algoritem lahko deluje za usmerjene ali neusmerjene grafe. Pri usmerjenih je potrebno paziti, da lahko pridemo do vsakega vozlišča, saj drugače dijkstra nebi delovala. 
-
-
-**Navodilo:** Kako bi prilagodili Dijkstrin algoritem, da bo našel vse najkrajše poti med vozlišči (in ne samo ene od njih)?
-
-Algoritem bi prilagodil tako, da bi poleg trenutno najbolj optimalnih poti, beležil tudi po kakšni poti lahko pridemo do te točke. In tako bi potem, ko primerjamo če smo našli boljšo povezavo imeli še pogoj, če smo našli povezavo, ki je enako dolga kot trenutno najboljša. V tem primeru bi v tabelo kjer hranimo po kakšni poti pridemo do točke dodal še novo pot. 
-
-## Uporaba implementacij na podatkih
-
-Oba algoritma sem stestiral in delujeta.
-
-**Dijsktra**
-Časovna zahtevnost pri tem algoritmu je O(n^2) ampak za 10000 vozlišč je delovalo vseeno dokaj hitro. 
-Prilagam sliko kako so časovne zahtevnosti delovali pri izvajanju dijkstre na podatnih grafih.
-
-![Slika casov Dijkstra](Casi_dijkstra.png)
-
-**Floyd-Warshall**
-Časovna zahtevnost tukaj hitreje raste. Vseeno sem naredil program, ki preizkusi tudi grafe z 1000 in pa 10000 povezavami ampak mi jih časovno ni uspelo počakati. Pri časovni zahtevnosti O(n^3) smo že hitro na zelo visokih številkah
-
-
-![Slika casov Floyd](Casi_floyd.png)
-
-
-## Dodatna naloga
-
-**Navodilo:** Kot pri MVD imamo podan graf G in vpeto drevo najkrajših poti T. Ponovno je vaš vhodni podatek povezava e in nova utež, algoritmi pa morajo T popraviti tako, da bo spet drevo najkrajših poti v spremenjenem grafu. Ste lahko kaj hitrejši kot Dijkstrin algoritem?
-
-
-Tako kot zgoraj imamo dva primera, pri katerem ne rabimo narediti nič. Pri ostalih dveh pa je problem zapleten. Z njem se še zdaj ukvarjajo različni raziskovalci. Neke podrobnosti se najde, če googlamo Dijsktra shortest path dynamic.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 2. naloga
+**Navodilo** Napiši algoritem (v čim bolj python sintaksi) s katerim si rešil zgornji problem. Probaj napisat še algoritem z uporabo prioritetne vrste. Primerjaj časovne zahtevnosti teh dveh algoritmov in komentiraj v katerih primerih bi uporabil kater algoritem. Primerjaj še z FW algoritmom iz prejšnjih vaj.
+
+- Osnutek algoritma brez prioritetne vrste
+```python
+def DijkstraSez(G, S):
+    """
+    Naredi dikstro na danem grafu in zacetnem vozliscu S s pomočjo navadnih seznamov
+    G - seznam sosednosti
+    S - indeks v seznamu sosednosti
+    O(|V|^2)
+    """
+    n = len(G)
+    razd = [float("inf")] * n
+    obisk = [False] * n
+    razd[S] = 0
+    q = set() #notri damo vsa vozlisca
+    while q:
+        minVoz = 2 #dobimo vozel po zadnjem obisku z najmanjso ceno #se iz q uzamemo
+        doMin = razd[minVoz]
+        for i, w in G[minVoz]:
+            if  doMin + w < razd[i]:
+                razd[i] = doMin + w
+            obisk[minVoz] = True 
+            q.remove(minVoz)
+        return razd
+```
+
+- Osnutek algoritma z prioritetno vrsto
+```python
+def DijkstraQ(G, S):
+    """
+    Naredi dikstro na danem grafu in zacetnem vozliscu S s pomočjo vrste z prioriteto
+    G - seznam sosednosti
+    S - indeks v seznamu sosednosti
+    O((|E| + |V|) * log(|E|))
+    """
+    n = len(G)
+    razd = [float("inf")] * n
+    obisk = [False] * n
+    razd[S] = 0
+    PQ = [(0, S)] #Prioritetna vrsta (tukaj samo prikazana in ni pravilna implementacija)
+    while len(PQ) != 0:
+        doMin, minVoz = PQ.pop()
+        if obisk[minVoz]:
+            continue
+        obisk[minVoz] = True
+        razd[minVoz] = doMin
+        for i, w in G[minVoz]:
+            if not obisk[i]:
+                PQ.push((doMin + w), i)
+    return razd
+```
+
+## 3. naloga
+**Navodilo** Kako bi modificiral Dijkstrov algoritem, da bi poleg najcenejše vrnil še najkrajšo pot (ali kakšno drugo "sestavljeno" metriko")?
+
+Poleg tabele z razdaljami, bi hranili še dodatno tabelo v katero bi shranjevali vozlišče, iz katerega smo v tistem trenutku našli najhitrejšo pot. Seveda, bi se ta vozlišča lahko večkrat prepisala (če najdemo boljšo pot). Na koncu imamo poleg tabele končnih razdalj še tabelo vozlišč, kjer imamo na $i$-tem indeksu napisano vozlišče iz katerega pridemo do $i$-tega vozlišča.
+
+## 4. naloga
+**Navodilo** Poizkusi opustiti predpostavko o nenegativnih utežeh, tako da vsem povezavam prišteješ tako število, da postanejo nenegativne. Kje je glavni problem tega pristopa?
+
+Glavni problem tega pristopa je, da iščemo pot z najmanjšo ceno in ne z najmanjšim številom poti. V primeru, da bi imeli na začetku eno drago povezavo in pa alternativno pot iz večih povezav, ki so skupaj vseeno cenejše. Če tukaj prištejemo vsem povezavam neko število $k$, se tisti dragi povezavi poveča cena samo za $k$, medtem ko pa bi se alternativni poti, ker je sestavljena iz večih $m$ povezav povečala cena za $m * n$
+
+## 5. naloga
+**Navodilo** Dijkstrov algoritem iz točke 1) in 2) implementiraj v pythonu. Kot vhod naj sprejme seznam povezav oblike (u, v, teza_uv). Poleg primera od zgoraj dodaj še kakšen svoj testni primer.
 
 
 # Viri
 
-1. Dijkstra's Algorithm [https://www.programiz.com/dsa/dijkstra-algorithm](07.04.2021)
-2. Floyd-Warshall Algorithm [https://www.programiz.com/dsa/floyd-warshall-algorithm](07.04.2021)
+1. Dijkstra's Algorithm [https://www.programiz.com/dsa/dijkstra-algorithm](27.03.2021)

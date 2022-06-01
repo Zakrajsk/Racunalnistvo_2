@@ -34,7 +34,7 @@ def DijkstraQ(G, S):
     razd = [float("inf")] * n
     obisk = [False] * n
     razd[S] = 0
-    PQ = [(0, S)]
+    PQ = [(0, S)] #Prioritetna vrsta (tukaj samo prikazana in ni pravilna implementacija)
     while len(PQ) != 0:
         doMin, minVoz = PQ.pop()
         if obisk[minVoz]:
@@ -44,7 +44,6 @@ def DijkstraQ(G, S):
         for i, w in G[minVoz]:
             if not obisk[i]:
                 PQ.push((doMin + w), i)
-    
     return razd
 
 

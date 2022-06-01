@@ -6,37 +6,35 @@
 
 ---
 
-
-Na vajah smo se pogovarjali o Bellman-Fordovem algoritmu. Pogledali smo kako deluje na nekem grafu. Potem smo dobili v razmislek, kako naj bojo urejene povezave, da bi se algoritem zaključil v čim manj fazah.
+Na vajah smo se pogovarjali o Primovem algoritmu, ki rešuje problem minimalnega vpetega drevesa. Simulirali smo njegovo delovanje in potem obravnavali še iskanje najdražjega vpetega drevesa. Dokazovali smo tudi zakaj dobimo enolično minimalno vpeto drevo, če imamo graf, kjer so vse teže povezav različne. Na koncu smo se pogovarjali o ieji algoritma, ki bi poiskal drugo, tretje, ali katerokoli največje vpeto drevo.
 
 
 ## Komentarji in opombe
 
-Vaje so bile poučne, saj smo videli, da tudi če imamo en algoritem, ki velja za dobrega, da je lahko pomembno tudi, kako podamo podatke. S tem lahko prišparamo pri časovni zahtevnosti.
-
-
-## Organizacija dela
-
-V skupinah smo naredili razmislek. Tokrat ga nismo delili z drugo skupino, saj je zmanjkalo časa.
-
-
-
+Vaje so bile dobre, saj se veliko več naučimo, če skupaj pogledamo problem in komentiramo. Zato mislim, da je bil tak pristop super.
 
 
 ## Primov algoritem
 
+## 1. naloga
+**Navodilo** Ponovitev Primovega algoritma (vhod, izhod, ideja algoritma, časovna zahtevnost)
+
+Primov algoritem rešuje problem minimalnega vpetega drevesa v grafu.\
+Vhodni podatek je graf. Kot izhod pa dobimo minimalno vpeto drevo. Če jih obstaja več, bo algoritem vrnil enega.\
+Ideja algoritma je da v vsaki iteraciji dodamo neko vozlišče, do katerega lahko pridemo najcenejše. Vedno imamo graf razdeljen na dva dela.En del vsebuje vozlišča, ki smo jih že obravnavali, v drugem delu pa so vsi ostali. Hranimo povezave, ki kažejo iz vozlišč dela, kjer so vozlišča, ki smo jih že obravnavali in iščemo neko tako, ki bo kazala na vozlišče, ki še ni bilo obravnavano.\
+Naivna časovna zahtevnost: $O(|V|^2)$\
+Časovna zahtevnost če algoritem optimiziramo: $O(|E| * log|E|)$ Pri tem povezave, ki kažejo izven drevese dodajamo v prioritetno vrsto
 
 
-1. Računa najmanjšo pot v grafu
-vhod in izhod minimalno vpeto drevo  (eno izmed njih, če jih je več)
-ideja: v vsaki iteraciji dodamo neko vozlišče, do katerega lahko pridemo najcenejše. imamo dva dela en, kjer smo ga že obdelali in drugi del. Hranimo povezave, ki kažejo iz vozlišč dela, ki smo ga že obdelali in iščemo neko tako, ki bo kazala na vozlišče iz še ne obdelanega dela.
-naivna časovna zahtevnost: $O(|V|^2)$
-časovna zahtevnost če optimiziramo: $O(|E| * log|E|)$ (Povezave, ki kažejo izven drevese dodajamo v prioritetno vrsto)
+## 2. naloga
+**Navodilo** Simulacija Primovega algoritma na grafu:
+Postopek na grafu, začeli smo z A (mas slikan na telefonu)
+![Slika grafa](primer_graf.png)
 
+![Slika resitve](resen_graf.png)
 
-
-2. Postopek na grafu, začeli smo z A (mas slikan na telefonu)
-
+## 1. naloga
+**Navodilo** Kaj računa in kako deluje Floyd Warshallov algoritem? Kakšna je časovna zahtevnost?
 3. 
 Graf G, ki ima vse uteži drugačne dokazujemo da dobimo samo eno min vpeto drevo.
 (protislovje) zanikamo desni del ==> imamo T in T' MVD in ker nista enolična T != T' (vsaj ena povezava je različna)
@@ -56,15 +54,19 @@ $0 = \omega(e') - \omega(v)$
 <br>
 $ \omega(e') = \omega(v)$ => protislovje. 
 
-
+## 1. naloga
+**Navodilo** Kaj računa in kako deluje Floyd Warshallov algoritem? Kakšna je časovna zahtevnost?
 4. Ideja iskanja najdražjega; Uporabimo enak algoritem le, da tokrat dodajamo najdražje uteži (povezave) namesto najcenejših. Na vajah smo to izpeljali na podanem grafu tako, da smo začeli pri vozlišču C.
 
-
+## 1. naloga
+**Navodilo** Kaj računa in kako deluje Floyd Warshallov algoritem? Kakšna je časovna zahtevnost?
 5. $T$ se ne spremeni. V algoritmu na vsakem koraku izberemo enake povezave.
 Vsakemu vpetemu drevesu se poveča teža za $n-1$. saj so vsaka enako velika (logično). Zato je $T$ še vedno minimalno vpeto drevo.
 
 $T'$ se spremeni. Saj če imamo eno veliko povezavo in na drugi strani pot z veliko povezavami, se bo ta spremenil veliko več kot tista z eno veliko povezavo. Saj vsaki povezavi prištejemo 1.
 
+## 1. naloga
+**Navodilo** Kaj računa in kako deluje Floyd Warshallov algoritem? Kakšna je časovna zahtevnost?
 6. Imamo graf G in minimalno vpeto drevo $T$. Obravnavamo dve možnosti: povezava, ki ji spreminjamo utež je vsebovana v $T$ ali pa ni v $T$. Potem pa imamo ali se utež spremeni negativno ali pozitivno
 
 Obravnavamo vse možnosti:\
@@ -76,6 +78,8 @@ utež +, $e$ je v $T$ => izbrišemo $e$ in tako nam drevo razpade na dve kompone
 <br>
 utež -, $e$ ni v $T$ => Dodamo $e$ v T in dobimo cikel. Potem iz cikla izbrišemo povezavo z največjo utežjo.
 
+## 1. naloga
+**Navodilo** Kaj računa in kako deluje Floyd Warshallov algoritem? Kakšna je časovna zahtevnost?
 7. 
 $F = množica\ vpetih\ dreves\ v\ grafu\ G... G = K_n => |F| = n^{n - 2}$\
 Zgradimo graf $T(G)$:
