@@ -43,10 +43,10 @@ Spodaj je tabela, ki bi jo vrnila dijsktra, če bi iskali potiz vozličša $A$ d
 prioritetna vrsta
 PQ = [...(p, v)...]
 
-PQ.push((p, v)) ....... O(log|PQ|)
-PQ.pop() ...............O(log|PQ|)
+PQ.push((p, v)) ....... $O(log|PQ|)$\
+PQ.pop() ............... $O(log|PQ|)$
 
-Z PQ je odvisno koliko so redki grafi. Zato je treba vedeti na kaksnem grafu je treba delat.
+Uporaba prioritetne vrste na grafih, ki so redki se ne splača. Zato je pomembno, da vemo na kakšnem grafu delamo dijsktro.
 
 
 ## 2. naloga
@@ -111,10 +111,7 @@ Poleg tabele z razdaljami, bi hranili še dodatno tabelo v katero bi shranjevali
 ## 4. naloga
 **Navodilo** Poizkusi opustiti predpostavko o nenegativnih utežeh, tako da vsem povezavam prišteješ tako število, da postanejo nenegativne. Kje je glavni problem tega pristopa?
 
-Glavni problem tega pristopa je, da iščemo pot z najmanjšo ceno in ne z najmanjšim številom poti. V primeru, da bi imeli na začetku eno drago povezavo in pa alternativno pot iz večih povezav, ki so skupaj vseeno cenejše. Če tukaj prištejemo vsem povezavam neko število $k$, se tisti dragi povezavi poveča cena samo za $k$, medtem ko pa bi se alternativni poti, ker je sestavljena iz večih $m$ povezav povečala cena za $m * n$
-
-## 5. naloga
-**Navodilo** Dijkstrov algoritem iz točke 1) in 2) implementiraj v pythonu. Kot vhod naj sprejme seznam povezav oblike (u, v, teza_uv). Poleg primera od zgoraj dodaj še kakšen svoj testni primer.
+Glavni problem tega pristopa je, da iščemo pot z najmanjšo ceno in ne z najmanjšim številom poti. V primeru, da bi imeli na začetku eno drago povezavo in pa alternativno pot iz večih povezav, ki so skupaj vseeno cenejše. Če tukaj prištejemo vsem povezavam neko število $k$, se tisti dragi povezavi poveča cena samo za $k$, medtem ko pa bi se alternativni poti, ker je sestavljena iz večih $m$ povezav povečala cena za $m * k$
 
 
 # Viri
