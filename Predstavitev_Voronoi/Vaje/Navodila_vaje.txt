@@ -1,0 +1,11 @@
+V imeniku se nahaja datoteka vaja_voronoi.py, kjer sta že implementirana algoritma z
+naivno metodo in "jump flood" metodo ter nekaj dodatnih pomožnih funkcij. 
+
+Na vajah je potrebno osnovno implementacijo naivne oz. "brute force" metode izboljšati tako, 
+da vsakemu semenu dodamo še utež. Moč posameznega semena bo tako odvisna tudi od njegove
+uteži, kar pomeni; Seme z večjo utežjo bo imelo večje pripadajoče območje, kot pa to isto seme z
+manšo utežjo. Nalogo si lahko interpretiramo kot postavljanje policijskih enot, kjer imajo enote
+različno število zaposlenih policajev in tako lahko posegajo po večjem območju. V našem primeru
+to predstavljamo z utežmi.
+
+Dodaten del nalog je poizkušanje raznih metrik pri izrisovanju Voronoijevih diagramov.
